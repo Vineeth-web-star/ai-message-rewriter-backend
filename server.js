@@ -6,7 +6,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Load API key from Render's environment variables
+// Load API key from Render environment variables
 const client = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY
 });
