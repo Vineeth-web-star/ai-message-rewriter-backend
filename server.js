@@ -6,7 +6,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Load API key from Render environment variables
+// Load API key from Render's environment variables
 const client = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY
 });
@@ -32,7 +32,7 @@ app.post("/rewrite", async (req, res) => {
   }
 });
 
-// Important: Use Render's PORT (not 3000)
+// IMPORTANT: Use Render’s assigned port
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
