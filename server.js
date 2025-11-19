@@ -6,11 +6,12 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// Load API key from Render environment variables
 const client = new OpenAI({
-  apiKey: "apiKey: process.env.OPENAI_API_KEY
-"
+  apiKey: process.env.OPENAI_API_KEY
 });
 
+// Rewrite endpoint
 app.post("/rewrite", async (req, res) => {
   const { text, tone } = req.body;
 
@@ -18,7 +19,7 @@ app.post("/rewrite", async (req, res) => {
     const result = await client.chat.completions.create({
       model: "gpt-4o-mini",
       messages: [
-        { role: "system", content: "Rewrite the text in a " + tone + " tone." },
+        { role: "system", content: `Rewrite the text in a ${tone} tone.` },
         { role: "user", content: text }
       ]
     });
@@ -31,6 +32,8 @@ app.post("/rewrite", async (req, res) => {
   }
 });
 
-app.listen(3000, () => {
-  console.log("Server running on http://localhost:3000");
+// Important: Use Render's PORT (not 3000)
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+  console.log(`Server running on port ${port}`);
 });
